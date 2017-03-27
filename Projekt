@@ -1,0 +1,9 @@
+package softwarehuset;
+
+public class Projekt {
+
+	public Projekt() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
