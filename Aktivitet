@@ -1,9 +1,30 @@
 package softwarehuset;
 
 public class Aktivitet {
-
-	public Aktivitet() {
-		// TODO Auto-generated constructor stub
+	
+	String aktivitet;
+	int startUge, slutUge, forventedeArbejdsTimer;
+	
+	public Aktivitet(String aktivitet, int startUge, int slutUge, int forventedeArbejdsTimer) {
+		this.aktivitet = aktivitet;
+		this.startUge = startUge;
+		this.slutUge = slutUge;
+		this.forventedeArbejdsTimer = forventedeArbejdsTimer;
 	}
-
+	
+	public String getAktivitet(){
+		return aktivitet;
+	}
+	
+	public int getStartUge(){
+		return startUge;
+	}
+	
+	public int getsSlutUge(){
+		return slutUge;
+	}
+	
+	public int getForventedeArbejdsTimer(){
+		return forventedeArbejdsTimer;
+	}	
 }
