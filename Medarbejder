@@ -21,9 +21,7 @@ public class Medarbejder {
 	public String GetID(){ //vi får medarbejderens ID
 		return ID;
 	}
-	public int GetAntalAktiviteter(){ //vi finder ud af hvor mange aktiviteter medarbejderen arbejder på
-		return AntalAktiviteter;
-	}
+	
 	public boolean Getledig(){ //vi finder ud af om medarbejderen er ledig
 		return ledig;
 	}
