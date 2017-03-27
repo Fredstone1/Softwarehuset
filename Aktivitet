@@ -20,7 +20,7 @@ public class Aktivitet {
 		return startUge;
 	}
 	
-	public int getsSlutUge(){
+	public int getSlutUge(){
 		return slutUge;
 	}
 	
