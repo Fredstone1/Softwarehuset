@@ -1,0 +1,9 @@
+package softwarehuset;
+
+public class Medarbejder {
+
+	public Medarbejder() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
