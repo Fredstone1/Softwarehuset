@@ -1,0 +1,9 @@
+package softwarehuset;
+
+public class Aktivitet {
+
+	public Aktivitet() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
