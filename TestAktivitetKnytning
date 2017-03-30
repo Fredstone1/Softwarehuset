@@ -1,1 +1,43 @@
+package softwarehuset;
 
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class TestAktivitetKnytning {
+
+	static Softwarehuset prog = new Softwarehuset();
+	static ProjektLeder progL = new ProjektLeder("Jan", "0103", true, "Forsøg");
+		
+	@Test
+	public void testAktivitetOprettelse() {
+		// Oprettelse af aktivitet
+		Aktivitet aktiv1 = new Aktivitet("Ferie", "Hubert", 1995, 01, 03, 0);
+		Aktivitet aktiv2 = new Aktivitet("Klassediagram", "Frederik", 2, 01, 03, 40);
+		
+		// Test af oprettelse
+		progL.OpretAktivitet(aktiv1);
+		progL.OpretAktivitet(aktiv2);
+		
+		// Aktivitet 1. 
+		assertEquals(progL.AktiveAktiviteter.get(0).aktivitet, "Ferie");
+		assertEquals(progL.AktiveAktiviteter.get(0).projektNummer, 1995);
+		assertEquals(progL.AktiveAktiviteter.get(0).startUge, 01);
+		assertEquals(progL.AktiveAktiviteter.get(0).slutUge, 03);
+		assertEquals(progL.AktiveAktiviteter.get(0).forventedeArbejdsTimer, 0);
+		
+		// Aktivitet 2.
+		assertEquals(progL.AktiveAktiviteter.get(1).aktivitet, "Klassediagram");
+		assertEquals(progL.AktiveAktiviteter.get(1).projektNummer, 2);
+		assertEquals(progL.AktiveAktiviteter.get(1).startUge, 01);
+		assertEquals(progL.AktiveAktiviteter.get(1).slutUge, 03);
+		assertEquals(progL.AktiveAktiviteter.get(1).forventedeArbejdsTimer, 40);
+			
+	}
+	@Test
+	public void testMedarbejderTilknyttelse() {
+	// Oprettelse af medarbejder
+			Medarbejder medarb1 = new Medarbejder("Hubert", "0101", true);
+			prog.opretUser(medarb1);
+	}
+}
+	
