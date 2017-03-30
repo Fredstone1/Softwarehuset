@@ -1,1 +1,22 @@
+package softwarehuset;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class Softwarehuset {
+
+	public List<Medarbejder> MedarbejderListe = new ArrayList<Medarbejder>();
+	public List<Projekt> ProjektListe = new ArrayList<Projekt>();
+
+	public void opretUser(Medarbejder medarbejder) {
+		this.MedarbejderListe.add(medarbejder);
+	}
+
+	public void opretProjekt(Projekt projekt) {
+		this.ProjektListe.add(projekt);
+	}
+	
+	public void ProjektLedelTildel() {
+		
+	}
+}
