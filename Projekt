@@ -1,9 +1,27 @@
 package softwarehuset;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Projekt {
 
-	public Projekt() {
-		// TODO Auto-generated constructor stub
+	int Projektnummer;
+	String Navn;
+	
+	public Projekt(String Navn) {
+		this.Navn = Navn;
 	}
-
+	
+	public int getProjektNummer (List<Projekt> projektListe) {
+		Projektnummer = projektListe.size();
+		return Projektnummer;
+	}
+	
+	public String getNavn(){
+		return Navn;
+	}
+	
+	public void TilknytProjektleder(){
+		
+	}
 }
