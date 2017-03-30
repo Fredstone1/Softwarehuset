@@ -1,9 +1,13 @@
 package softwarehuset;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Medarbejder {
 	
 	public String ID, Navn; 
 	public Boolean Ledig;
+	public List<Aktivitet> AntalAktiviteter = new ArrayList<Aktivitet>();
 	
 	
 	public Medarbejder(String Navn, String ID, Boolean Ledig) {
@@ -31,6 +35,4 @@ public class Medarbejder {
 	public void søgAssistance() {
 		
 	}
-	
-	
 }

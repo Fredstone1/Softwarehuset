@@ -31,8 +31,11 @@ public class ProjektLeder extends Medarbejder {
 		this.AktiveAktiviteter.add(aktivitet);
 	}
 	
-	public void UddelAktivitet(){
-		
+	public void UddelAktivitet(String ID, Aktivitet aktivitet){
+		int i = MedarbejderListe.indexOf(ID);;
+		if (this.MedarbejderListe.get(i).AntalAktiviteter.size() < 20){
+			this.MedarbejderListe.get(i).AntalAktiviteter.add(aktivitet); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
+		}
 	}
 	
 	public void seStatusProjekt(){
