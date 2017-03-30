@@ -1,1 +1,28 @@
+package softwarehuset;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TestProjekt {
+
+	static Softwarehuset prog = new Softwarehuset();
+	
+	@Test
+	public void testProjekt() {
+		Projekt proj1 = new Projekt("Softwarehuset");
+		Projekt proj2 = new Projekt("Magnushuset");
+		prog.opretProjekt(proj1);
+		prog.opretProjekt(proj2);
+		
+		//Testning af oprettelse af projekt
+		assertEquals(proj1.getProjektNummer(),0);
+		assertEquals(proj1.Navn,"Softwarehuset");
+		
+		assertEquals(proj2.Projektnummer,1);
+		assertEquals(proj2.Navn,"Magnushuset");
+		
+	}
+
+}
 
