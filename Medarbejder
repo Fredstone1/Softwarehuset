@@ -1,43 +1,34 @@
 package softwarehuset;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
-
 public class Medarbejder {
-	String ID; 
-	boolean ledig;
-	//ArrayList<Aktivitet> AktivitetsListe = new ArrayList<Aktivitet>();
-	int arbejdstimer = 0;
 	
-	public Medarbejder(String ID, boolean ledig /*, ArrayList AktivitetsListe*/, int arbejdstimer) {
-		// TODO Auto-generated constructor stub
+	public String ID, Navn; 
+	public Boolean Ledig;
+	
+	
+	public Medarbejder(String Navn, String ID, Boolean Ledig) {
+		this.Navn = Navn;
 		this.ID = ID;
-		this.ledig = ledig;
-		this.arbejdstimer = arbejdstimer;
-		//this.AktivitetsListe = AktivitetsListe;
+		this.Ledig = Ledig;
 	}
 	
-	public String GetID(){ //vi får medarbejderens ID
+	public String getID() { //vi får medarbejderens ID
 		return ID;
 	}
 	
-	public boolean Getledig(){ //vi finder ud af om medarbejderen er ledig
-		return ledig;
+	public String getNavn() {
+		return Navn;
 	}
-	//public ArrayList<Aktivitet> GetAktivitetsListe(){ //vi returner aktivitets liste 
-		//return AktivitetsListe;
-//	}
-	public int Getarbejdstimer(){
-		return arbejdstimer;
+	
+	public Boolean getLedig() {
+		return Ledig;
 	}
 	
 	public void RegistrerTimer(Aktivitet aktivitet, int arbejdstimer){
-		//Scanner scanner = new Scanner(System.in);
-		arbejdstimer = Getarbejdstimer();
-		//aktivitet.ForventedeArbejdstimer - scanner
-		//if (!AktivitetsListe.contains(aktivitet){
-		//AktivitetsListe.add(aktivitet)
+		
+	}
+	
+	public void søgAssistance() {
 		
 	}
 	
