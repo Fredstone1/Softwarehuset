@@ -1,1 +1,46 @@
+package softwarehuset;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjektLeder extends Medarbejder {
+
+	String ProjektNavn;
+	public List<Medarbejder> MedarbejderListe = new ArrayList<Medarbejder>();
+	public List<String> LedigMedarbejderListe = new ArrayList<String>();
+	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
+	
+	public ProjektLeder(String Navn, String ID,Boolean Ledig ,String ProjektNavn) {
+		super(Navn, ID, Ledig);
+		this.ProjektNavn = ProjektNavn;
+		
+	}
+	public String getProjektNavn(){
+		return ProjektNavn;
+	}
+	public List<String> LedigeMedarbejder(List<Medarbejder> medarbejderListe){
+		for (int i = 0; i<medarbejderListe.size(); i++){
+				if (medarbejderListe.get(i).Ledig.equals(true)){
+				LedigMedarbejderListe.add(medarbejderListe.get(i).Navn+medarbejderListe.get(i).ID);
+			}
+		}
+		return LedigMedarbejderListe;
+	}
+
+	public void OpretAktivitet(Aktivitet aktivitet){
+		this.AktiveAktiviteter.add(aktivitet);
+	}
+	
+	public void UddelAktivitet(){
+		
+	}
+	
+	public void seStatusProjekt(){
+		
+	}
+	
+	public void seStatusAktivitet(){
+		
+	}
+}
 
