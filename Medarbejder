@@ -7,7 +7,9 @@ public class Medarbejder {
 	
 	public String ID, Navn; 
 	public Boolean Ledig;
+	public Boolean isProjektL = false;
 	public List<Aktivitet> AntalAktiviteter = new ArrayList<Aktivitet>();
+	public List<Projekt> Projekt = new ArrayList<Projekt>();
 	
 	
 	public Medarbejder(String Navn, String ID, Boolean Ledig) {
@@ -35,4 +37,12 @@ public class Medarbejder {
 	public void søgAssistance() {
 		
 	}
+	public boolean isProjektL() {
+		if (Projekt.size() < 1){
+			return false;
+		} else 
+			return true;
+	}
 }
+
+	

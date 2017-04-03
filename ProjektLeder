@@ -5,6 +5,57 @@ import java.util.List;
 
 public class ProjektLeder extends Medarbejder {
 
+	public List<String> LedigMedarbejderListe = new ArrayList<String>();
+	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
+	
+	public ProjektLeder(String Navn, String ID,Boolean Ledig) {
+		super(Navn, ID, Ledig);
+		
+	}
+	public List<String> LedigeMedarbejder(List<Medarbejder> medarbejderListe){
+		for (int i = 0; i<medarbejderListe.size(); i++){
+				if (medarbejderListe.get(i).Ledig.equals(true)){
+				LedigMedarbejderListe.add(medarbejderListe.get(i).Navn+medarbejderListe.get(i).ID);
+			}
+		}
+		return LedigMedarbejderListe;
+	}
+
+	public void OpretAktivitet(Aktivitet aktivitet){
+		this.AktiveAktiviteter.add(aktivitet);
+	}
+	
+	public void UddelAktivitet(String ID, Aktivitet aktivitet){
+		int i = 0;
+		for (int j = 0; j < Softwarehuset.MedarbejderListe.size(); j++){
+			Medarbejder temp = Softwarehuset.MedarbejderListe.get(j);
+			if (temp.ID.equals(ID)) {
+				i = j;
+				break;
+			}
+		}
+		if (Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.size() < 20 && Softwarehuset.MedarbejderListe.get(i).getLedig()==true){
+			Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.add(aktivitet); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
+		}
+	}
+	
+	public void seStatusProjekt(){
+		
+	}
+	
+	public void seStatusAktivitet(){
+		
+	}
+	
+}
+
+package softwarehuset;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjektLeder extends Medarbejder {
+
 	String ProjektNavn;
 	public List<String> LedigMedarbejderListe = new ArrayList<String>();
 	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
