@@ -1,3 +1,4 @@
+
 package softwarehuset;
 
 import static org.junit.Assert.*;
@@ -11,8 +12,8 @@ public class TestAktivitetKnytning {
 	@Test
 	public void testAktivitetOprettelse() {
 		// Oprettelse af aktivitet
-		Aktivitet aktiv1 = new Aktivitet("Ferie", "Hubert", 1995, 01, 03, 0);
-		Aktivitet aktiv2 = new Aktivitet("Klassediagram", "Frederik", 2, 01, 03, 40);
+		Aktivitet aktiv1 = new Aktivitet("Ferie", 1995, 01, 03, 0);
+		Aktivitet aktiv2 = new Aktivitet("Klassediagram", 2, 01, 03, 40);
 		
 		// Test af oprettelse
 		progL.OpretAktivitet(aktiv1);
@@ -37,7 +38,29 @@ public class TestAktivitetKnytning {
 	public void testMedarbejderTilknyttelse() {
 	// Oprettelse af medarbejder
 			Medarbejder medarb1 = new Medarbejder("Hubert", "0101", true);
+			Medarbejder medarb2 = new Medarbejder("Frederik", "0102", true);
+			Medarbejder medarb3  = new Medarbejder("Magnus", "0103", false);
 			prog.opretUser(medarb1);
+			prog.opretUser(medarb2);
+			prog.opretUser(medarb3);
+			
+			Aktivitet aktiv1 = new Aktivitet("akt1",  001, 17, 18, 40);
+			Aktivitet aktiv2 = new Aktivitet("akt2",  002, 18, 20, 50);
+			Aktivitet aktiv3 = new Aktivitet("akt3",  003, 17, 18, 10);
+			progL.OpretAktivitet(aktiv1);
+			progL.OpretAktivitet(aktiv2);
+			progL.OpretAktivitet(aktiv3);
+			
+			progL.UddelAktivitet("0101", aktiv1);
+			progL.UddelAktivitet("0102", aktiv1);
+			progL.UddelAktivitet("0103", aktiv2);
+			progL.UddelAktivitet("0102", aktiv3);
+			
+			assertEquals(prog.MedarbejderListe.get(0).AntalAktiviteter.size(), 1);
+			assertEquals(prog.MedarbejderListe.get(1).AntalAktiviteter.size(), 2);
+			assertEquals(prog.MedarbejderListe.get(2).AntalAktiviteter.size(), 0);
+			
 	}
+	
 }
 	
