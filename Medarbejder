@@ -7,15 +7,13 @@ public class Medarbejder {
 	
 	public String ID, Navn; 
 	public Boolean Ledig;
-	public Boolean isProjektL = false;
 	public List<Aktivitet> AntalAktiviteter = new ArrayList<Aktivitet>();
 	public List<Projekt> Projekt = new ArrayList<Projekt>();
 	
 	
-	public Medarbejder(String Navn, String ID, Boolean Ledig) {
+	public Medarbejder(String Navn, String ID) {
 		this.Navn = Navn;
 		this.ID = ID;
-		this.Ledig = Ledig;
 	}
 	
 	public String getID() { //vi får medarbejderens ID
@@ -31,7 +29,9 @@ public class Medarbejder {
 	}
 	
 	public void RegistrerTimer(Aktivitet aktivitet, int arbejdstimer){
-		
+		if (AntalAktiviteter.contains(aktivitet)){ 
+		aktivitet.setAntalArbejdstimer(arbejdstimer);
+		}
 	}
 	
 	public void søgAssistance() {
@@ -44,5 +44,3 @@ public class Medarbejder {
 			return true;
 	}
 }
-
-	

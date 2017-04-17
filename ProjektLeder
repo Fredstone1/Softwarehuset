@@ -5,102 +5,63 @@ import java.util.List;
 
 public class ProjektLeder extends Medarbejder {
 
-	public List<String> LedigMedarbejderListe = new ArrayList<String>();
-	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
-	
-	public ProjektLeder(String Navn, String ID,Boolean Ledig) {
-		super(Navn, ID, Ledig);
-		
-	}
-	public List<String> LedigeMedarbejder(List<Medarbejder> medarbejderListe){
-		for (int i = 0; i<medarbejderListe.size(); i++){
-				if (medarbejderListe.get(i).Ledig.equals(true)){
-				LedigMedarbejderListe.add(medarbejderListe.get(i).Navn+medarbejderListe.get(i).ID);
-			}
-		}
-		return LedigMedarbejderListe;
-	}
-
-	public void OpretAktivitet(Aktivitet aktivitet){
-		this.AktiveAktiviteter.add(aktivitet);
-	}
-	
-	public void UddelAktivitet(String ID, Aktivitet aktivitet){
-		int i = 0;
-		for (int j = 0; j < Softwarehuset.MedarbejderListe.size(); j++){
-			Medarbejder temp = Softwarehuset.MedarbejderListe.get(j);
-			if (temp.ID.equals(ID)) {
-				i = j;
-				break;
-			}
-		}
-		if (Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.size() < 20 && Softwarehuset.MedarbejderListe.get(i).getLedig()==true){
-			Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.add(aktivitet); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
-		}
-	}
-	
-	public void seStatusProjekt(){
-		
-	}
-	
-	public void seStatusAktivitet(){
-		
-	}
-	
-}
-
-package softwarehuset;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class ProjektLeder extends Medarbejder {
-
 	String ProjektNavn;
-	public List<String> LedigMedarbejderListe = new ArrayList<String>();
+	public static List<Medarbejder> LedigMedarbejderListe = new ArrayList<Medarbejder>();
 	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
-	
-	public ProjektLeder(String Navn, String ID,Boolean Ledig ,String ProjektNavn) {
-		super(Navn, ID, Ledig);
-		this.ProjektNavn = ProjektNavn;
-		
+
+	public ProjektLeder(String Navn, String ID) {
+		super(Navn, ID);
+
 	}
-	public String getProjektNavn(){
+
+	public String getProjektNavn() {
 		return ProjektNavn;
 	}
-	public List<String> LedigeMedarbejder(List<Medarbejder> medarbejderListe){
-		for (int i = 0; i<medarbejderListe.size(); i++){
-				if (medarbejderListe.get(i).Ledig.equals(true)){
-				LedigMedarbejderListe.add(medarbejderListe.get(i).Navn+medarbejderListe.get(i).ID);
+
+	public List<Medarbejder> LedigeMedarbejder() {
+		for (int i = 0; i < Softwarehuset.MedarbejderListe.size(); i++) {
+			if (Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.size() < 20) {
+				LedigMedarbejderListe.add(Softwarehuset.MedarbejderListe.get(i));
 			}
 		}
 		return LedigMedarbejderListe;
 	}
 
-	public void OpretAktivitet(Aktivitet aktivitet){
+	public void OpretAktivitet(Aktivitet aktivitet, Projekt projekt) {
 		this.AktiveAktiviteter.add(aktivitet);
-	}
-	
-	public void UddelAktivitet(String ID, Aktivitet aktivitet){
-		int i = 0;
-		for (int j = 0; j < Softwarehuset.MedarbejderListe.size(); j++){
-			Medarbejder temp = Softwarehuset.MedarbejderListe.get(j);
-			if (temp.ID.equals(ID)) {
-				i = j;
+		for (int i=0; i < Softwarehuset.ProjektListe.size(); i++){
+			if(Softwarehuset.ProjektListe.get(i).Navn == projekt.Navn){
+				Softwarehuset.ProjektListe.get(i).TilknyttedeAktiviteter.add(aktivitet);
 				break;
 			}
 		}
-		if (Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.size() < 20 && Softwarehuset.MedarbejderListe.get(i).getLedig()==true){
-			Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.add(aktivitet); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
+	}
+
+	public void UddelAktivitet(String ID, Aktivitet aktivitet) {
+		for (int j = 0; j < LedigMedarbejderListe.size(); j++) {
+			if (LedigMedarbejderListe.get(j).ID == ID) {
+				LedigMedarbejderListe.get(j).AntalAktiviteter.add(aktivitet); // tilføjer aktivitet til et array tilknyttet hver medarbejder
+				break;
+			}
 		}
 	}
-	
-	public void seStatusProjekt(){
+
+	public void seStatusProjekt(Projekt projekt) {
+		int arb = 0;
+		int forv = 0;
+		for (int i = 0; i < projekt.TilknyttedeAktiviteter.size(); i++){
+			arb = arb + projekt.TilknyttedeAktiviteter.get(i).antalArbejdstimer;
+			forv = forv + projekt.TilknyttedeAktiviteter.get(i).forventedeArbejdsTimer;
+		}
+		int statusTimer = forv-arb;
+		int statusProcent = (arb/forv)*100;
+		System.out.println("Forventede resterende arbjedstimer: "+statusTimer);
+		//System.out.println("Procentvise gennemarbejdelse: "+statusProcent+"%");
+		
 		
 	}
-	
-	public void seStatusAktivitet(){
-		
+
+	public void seStatusAktivitet() {
+
 	}
 }
-

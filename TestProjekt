@@ -5,8 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestProjekt {
-
-	static Softwarehuset prog = new Softwarehuset();
+	Softwarehuset prog = new Softwarehuset();
 	
 	@Test
 	public void testProjekt() {
@@ -16,13 +15,13 @@ public class TestProjekt {
 		prog.opretProjekt(proj2);
 		
 		//Testning af oprettelse af projekt
-		assertEquals(proj1.getProjektNummer(),0);
-		assertEquals(proj1.Navn,"Softwarehuset");
+		assertEquals(Softwarehuset.ProjektListe.size(),2);
+		assertEquals(Softwarehuset.ProjektListe.get(0).Projektnummer,"170001");
+		assertEquals(Softwarehuset.ProjektListe.get(0).Navn,"Softwarehuset");
 		
-		assertEquals(proj2.Projektnummer,1);
-		assertEquals(proj2.Navn,"Magnushuset");
+		assertEquals(Softwarehuset.ProjektListe.get(1).Projektnummer,"170002");
+		assertEquals(Softwarehuset.ProjektListe.get(1).Navn,"Magnushuset");
 		
 	}
 
 }
-

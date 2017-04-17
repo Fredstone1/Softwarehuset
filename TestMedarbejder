@@ -7,51 +7,44 @@ import org.junit.Test;
 public class TestMedarbejder {
 
 	static Softwarehuset prog = new Softwarehuset();
-	static ProjektLeder progL = new ProjektLeder("Jan", "0103", true, "Forsøg");
+	static ProjektLeder progL = new ProjektLeder("Jan", "0103");
+	
+	//Vi vil nu gerne oprette en medarbejde
+	Medarbejder medarb1 = new Medarbejder("Hubert", "0101");
+	Medarbejder medarb2 = new Medarbejder("Magnus", "0102");
+	Medarbejder medarb3 = new Medarbejder("Frederik", "0103");
+					
 	
 	@Test
 	public void testArrayfunction() throws Exception{
-		
-		//Vi vil nu gerne oprette en medarbejde
-		Medarbejder medarb1 = new Medarbejder("Hubert", "0101", true);
-		Medarbejder medarb2 = new Medarbejder("Magnus", "0102", false);
-		Medarbejder medarb3 = new Medarbejder("Frederik", "0103", true);
-				
 		//Tilføj ham til medarbejder array
 		prog.opretUser(medarb1);
 		prog.opretUser(medarb2);
 		prog.opretUser(medarb3);
 				
 		//Test vores array
-		assertEquals(prog.MedarbejderListe.size(),3);
+		assertEquals(Softwarehuset.MedarbejderListe.size(),3);
 		
 		//Test af første medarbejder
-		assertEquals(prog.MedarbejderListe.get(0).Navn, "Hubert");
-		assertEquals(prog.MedarbejderListe.get(0).ID, "0101");
-		assertTrue(prog.MedarbejderListe.get(0).Ledig);
+		assertEquals(Softwarehuset.MedarbejderListe.get(0).Navn, "Hubert");
+		assertEquals(Softwarehuset.MedarbejderListe.get(0).ID, "0101");
 		
 		//Test af anden medarbejder
-		assertEquals(prog.MedarbejderListe.get(1).Navn, "Magnus");
-		assertEquals(prog.MedarbejderListe.get(1).ID, "0102");
-		assertFalse(prog.MedarbejderListe.get(1).Ledig);
+		assertEquals(Softwarehuset.MedarbejderListe.get(1).Navn, "Magnus");
+		assertEquals(Softwarehuset.MedarbejderListe.get(1).ID, "0102");
 		
 		//Test af tredje medarbejder
-		assertEquals(prog.MedarbejderListe.get(2).Navn, "Frederik");
-		assertEquals(prog.MedarbejderListe.get(2).ID, "0103");
-		assertTrue(prog.MedarbejderListe.get(2).Ledig);
+		assertEquals(Softwarehuset.MedarbejderListe.get(2).Navn, "Frederik");
+		assertEquals(Softwarehuset.MedarbejderListe.get(2).ID, "0103");
 	}
 	
 	@Test
 	public void testLedigMedarbejder() throws Exception{
-		//Vi tester nu igennem om Medarbejderne er ledige
-		for(int i = 0; i<progL.MedarbejderListe.size(); i++){
-			assertTrue(progL.MedarbejderListe.get(i).Ledig);
-		}
 		
 		//Vi tester nu ProjektLederens Metode LedigeMedarbejdere
-		progL.LedigeMedarbejder(prog.MedarbejderListe);
-		assertEquals(progL.LedigMedarbejderListe.get(0), "Hubert0101");
-		assertEquals(progL.LedigMedarbejderListe.get(1), "Frederik0103");
+		progL.LedigeMedarbejder();
+		assertEquals(ProjektLeder.LedigMedarbejderListe.get(0).Navn, "Hubert");
+		assertEquals(ProjektLeder.LedigMedarbejderListe.get(1).Navn, "Magnus");
+		assertEquals(ProjektLeder.LedigMedarbejderListe.get(2).Navn, "Frederik");
 	}
 }
-

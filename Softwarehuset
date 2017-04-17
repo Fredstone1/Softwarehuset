@@ -1,21 +1,22 @@
 package softwarehuset;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Softwarehuset {
 
 	public static List<Medarbejder> MedarbejderListe = new ArrayList<Medarbejder>();
 	public static List<Medarbejder> ProjektLederList = new ArrayList<Medarbejder>();
-	public List<Projekt> ProjektListe = new ArrayList<Projekt>();
+	public static List<Projekt> ProjektListe = new ArrayList<Projekt>();
+	
 
 	public void opretUser(Medarbejder medarbejder) {
-		this.MedarbejderListe.add(medarbejder);
-	}
+		MedarbejderListe.add(medarbejder);
+		}
 
 	public void opretProjekt(Projekt projekt) {
-		this.ProjektListe.add(projekt);
-		
+		ProjektListe.add(projekt);
 	}
 	
 	public void ProjektLedelTildel(String ID, Projekt projekt) {
@@ -27,8 +28,8 @@ public class Softwarehuset {
 				break;
 			}
 		}
-		if (Softwarehuset.MedarbejderListe.get(i).getLedig()==true && Softwarehuset.MedarbejderListe.get(i).Projekt.size()<1){
-			Softwarehuset.MedarbejderListe.get(i).Projekt.add(projekt); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
+		if (ProjektLeder.LedigMedarbejderListe.get(i).Projekt.size()<1){
+			ProjektLeder.LedigMedarbejderListe.get(i).Projekt.add(projekt); //tilføjer aktivitet til et array tilknyttet hver medarbejder 
 			ProjektLederList.add(Softwarehuset.MedarbejderListe.get(i)); 
 		}
 

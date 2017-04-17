@@ -1,4 +1,3 @@
-
 package softwarehuset;
 
 import static org.junit.Assert.*;
@@ -7,17 +6,26 @@ import org.junit.Test;
 public class TestAktivitetKnytning {
 
 	static Softwarehuset prog = new Softwarehuset();
-	static ProjektLeder progL = new ProjektLeder("Jan", "0103", true, "Forsøg");
+	static ProjektLeder progL = new ProjektLeder("Jan", "0103");
+	
+	//Vi vil nu gerne oprette en medarbejde
+	Medarbejder medarb1 = new Medarbejder("Hubert", "0101");
+	Medarbejder medarb2 = new Medarbejder("Magnus", "0102");
+	Medarbejder medarb3 = new Medarbejder("Frederik", "0103");
+	
+	// Oprettelse af projekt
+	Projekt proj1 = new Projekt("Softwarehuset");
+	
+	// Oprettelse af aktivitet
+	Aktivitet aktiv1 = new Aktivitet("Ferie", 1995, 01, 03, 0);
+	Aktivitet aktiv2 = new Aktivitet("Klassediagram", 2, 01, 03, 40);
+			
 		
 	@Test
 	public void testAktivitetOprettelse() {
-		// Oprettelse af aktivitet
-		Aktivitet aktiv1 = new Aktivitet("Ferie", 1995, 01, 03, 0);
-		Aktivitet aktiv2 = new Aktivitet("Klassediagram", 2, 01, 03, 40);
-		
 		// Test af oprettelse
-		progL.OpretAktivitet(aktiv1);
-		progL.OpretAktivitet(aktiv2);
+		progL.OpretAktivitet(aktiv1,proj1);
+		progL.OpretAktivitet(aktiv2,proj1);
 		
 		// Aktivitet 1. 
 		assertEquals(progL.AktiveAktiviteter.get(0).aktivitet, "Ferie");
@@ -36,31 +44,21 @@ public class TestAktivitetKnytning {
 	}
 	@Test
 	public void testMedarbejderTilknyttelse() {
-	// Oprettelse af medarbejder
-			Medarbejder medarb1 = new Medarbejder("Hubert", "0101", true);
-			Medarbejder medarb2 = new Medarbejder("Frederik", "0102", true);
-			Medarbejder medarb3  = new Medarbejder("Magnus", "0103", false);
+		// Oprettelse af medarbejder
 			prog.opretUser(medarb1);
 			prog.opretUser(medarb2);
 			prog.opretUser(medarb3);
 			
-			Aktivitet aktiv1 = new Aktivitet("akt1",  001, 17, 18, 40);
-			Aktivitet aktiv2 = new Aktivitet("akt2",  002, 18, 20, 50);
-			Aktivitet aktiv3 = new Aktivitet("akt3",  003, 17, 18, 10);
-			progL.OpretAktivitet(aktiv1);
-			progL.OpretAktivitet(aktiv2);
-			progL.OpretAktivitet(aktiv3);
+		// Vi tester nu oprettelse
+			progL.OpretAktivitet(aktiv1,proj1);
+			progL.OpretAktivitet(aktiv2,proj1);
+			progL.LedigeMedarbejder();
+			progL.UddelAktivitet("0101", aktiv2);
 			
-			progL.UddelAktivitet("0101", aktiv1);
-			progL.UddelAktivitet("0102", aktiv1);
-			progL.UddelAktivitet("0103", aktiv2);
-			progL.UddelAktivitet("0102", aktiv3);
-			
-			assertEquals(prog.MedarbejderListe.get(0).AntalAktiviteter.size(), 1);
-			assertEquals(prog.MedarbejderListe.get(1).AntalAktiviteter.size(), 2);
-			assertEquals(prog.MedarbejderListe.get(2).AntalAktiviteter.size(), 0);
+		// Vi tester nu funktionaliten
+			assertEquals(ProjektLeder.LedigMedarbejderListe.get(0).AntalAktiviteter.size(), 1);
+			assertEquals(Softwarehuset.MedarbejderListe.get(1).AntalAktiviteter.size(), 0);
 			
 	}
-	
 }
 	

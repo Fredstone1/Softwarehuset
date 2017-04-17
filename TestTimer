@@ -1,1 +1,74 @@
+package softwarehuset;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TestTimer {
+
+	static Softwarehuset prog = new Softwarehuset();
+	static ProjektLeder progL = new ProjektLeder("Jan", "0103");
+
+	// Vi vil nu gerne oprette en medarbejde
+	Medarbejder medarb1 = new Medarbejder("Hubert", "0101");
+	Medarbejder medarb2 = new Medarbejder("Magnus", "0102");
+	Medarbejder medarb3 = new Medarbejder("Frederik", "0103");
+
+	// Oprettelse af projekt
+	Projekt proj1 = new Projekt("Softwarehuset");
+
+	// Oprettelse af aktivitet
+	Aktivitet aktiv1 = new Aktivitet("Ferie", 1995, 01, 03, 10);
+	Aktivitet aktiv2 = new Aktivitet("Klassediagram", 2, 01, 03, 40);
+	Aktivitet aktiv3 = new Aktivitet("Diagram", 2, 01, 03, 8);
+
+	@Test
+	public void testRegistrereTimer() {
+		// Vi sørger lige for at LedigmedabejderListe er oprettet
+		progL.LedigeMedarbejder();
+
+		// Vi opretter her de 3 medarbejdere
+		prog.opretUser(medarb1);
+		prog.opretUser(medarb2);
+		prog.opretUser(medarb3);
+
+		// Vi tester nu oprettelse
+		progL.OpretAktivitet(aktiv1, proj1);
+		progL.OpretAktivitet(aktiv2, proj1);
+		progL.LedigeMedarbejder();
+		progL.UddelAktivitet("0101", aktiv2);
+		progL.UddelAktivitet("0101", aktiv3);
+
+		// Vi vil nu tilføje og teste metoden registrereTimer.
+		medarb1.RegistrerTimer(aktiv2, 4);
+		assertEquals(4, medarb1.AntalAktiviteter.get(0).getAntalArbejdsTimer());
+
+		// Vi tester her forholdet mellem de registrerede timer og forventede
+		// timer.
+		assertEquals(aktiv2.getForventedeArbejdsTimer(), 36);
+	}
+
+	@Test
+	public void testProjektStatus() {
+		// Vi sørger lige for at LedigmedabejderListe er oprettet
+		progL.LedigeMedarbejder();
+
+		// Vi opretter her de 3 medarbejdere
+		prog.opretUser(medarb1);
+		prog.opretUser(medarb2);
+		prog.opretUser(medarb3);
+
+		// Vi tester nu oprettelse
+		progL.OpretAktivitet(aktiv1, proj1);
+		progL.OpretAktivitet(aktiv2, proj1);
+		progL.LedigeMedarbejder();
+		progL.UddelAktivitet("0101", aktiv2);
+		progL.UddelAktivitet("0101", aktiv3);
+		
+		assertEquals(progL.seStatusProjekt(proj1), "50");
+		medarb1.RegistrerTimer(aktiv2, 4);
+		
+
+	}
+}
 

@@ -1,1 +1,42 @@
+package softwarehuset;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class TestProjektLederTilføje {
+	
+
+	static Softwarehuset prog = new Softwarehuset();
+	static ProjektLeder progL = new ProjektLeder("Jan", "0104");
+		
+
+	@Test
+	public void test() {
+		Medarbejder medarb1 = new Medarbejder("Hubert", "0101");
+		Medarbejder medarb2 = new Medarbejder("Frederik", "0102");
+		Medarbejder medarb3  = new Medarbejder("Magnus", "0103");
+		prog.opretUser(medarb1);
+		prog.opretUser(medarb2);
+		prog.opretUser(medarb3);
+		progL.LedigeMedarbejder();
+		Projekt projekt1 = new Projekt("Byg Hjemmeside");
+		Projekt projekt2 = new Projekt("Byg Hjemmeside2");
+		Projekt projekt3 = new Projekt("Byg Hjemmeside3");
+		prog.opretProjekt(projekt1);
+		prog.ProjektLedelTildel("0102", projekt1);
+		prog.ProjektLedelTildel("0101", projekt2);
+		prog.ProjektLedelTildel("0103", projekt3);
+		
+		
+		assertEquals(Softwarehuset.ProjektLederList.contains(medarb1), true);
+		assertEquals(Softwarehuset.ProjektLederList.contains(medarb2), true);
+		assertEquals(Softwarehuset.ProjektLederList.contains(medarb3), true);
+		assertEquals(Softwarehuset.MedarbejderListe.get(1).Projekt.contains(projekt1),true);
+		assertEquals(Softwarehuset.MedarbejderListe.get(0).isProjektL(), true);
+		assertEquals(Softwarehuset.MedarbejderListe.get(2).isProjektL(), true);
+	}
+
+}
+
 

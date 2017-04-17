@@ -3,14 +3,16 @@ package softwarehuset;
 public class Aktivitet {
 	
 	String aktivitet, Medarbejder;
-	int projektNummer, startUge, slutUge, forventedeArbejdsTimer;
+	int projektNummer, startUge, slutUge, forventedeArbejdsTimer, antalArbejdstimer;
+	int forventedeArbejdsTimertemp;
 	
-	public Aktivitet(String aktivitet, String Medarbejder , int projektNummer, int startUge, int slutUge, int forventedeArbejdsTimer) {
+	public Aktivitet(String aktivitet, int projektNummer, int startUge, int slutUge, int forventedeArbejdsTimer) {
 		this.aktivitet = aktivitet;
 		this.projektNummer = projektNummer;
 		this.startUge = startUge;
 		this.slutUge = slutUge;
 		this.forventedeArbejdsTimer = forventedeArbejdsTimer;
+		
 	}
 	
 	public String getAktivitet(){
@@ -33,7 +35,16 @@ public class Aktivitet {
 	}
 	
 	public int getForventedeArbejdsTimer(){
-		return forventedeArbejdsTimer;
+		forventedeArbejdsTimertemp = forventedeArbejdsTimer;
+		forventedeArbejdsTimertemp = forventedeArbejdsTimertemp-antalArbejdstimer;
+		return forventedeArbejdsTimertemp;
 	}
 	
+	public int setAntalArbejdstimer(int arbejdstimer){
+		antalArbejdstimer = antalArbejdstimer+ arbejdstimer;
+		return antalArbejdstimer;
+	}
+	public int getAntalArbejdsTimer(){
+		return antalArbejdstimer;
+	}
 }
