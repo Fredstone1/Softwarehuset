@@ -1,11 +1,347 @@
+
 package softwarehuset;
 
-public class HovedProgram {
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Hashtable;
+import java.util.List;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("hej");
-		System.out.println("hej");
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+public class Hovedprogram extends JFrame implements ActionListener {
+
+	// For softwarehuset
+	public JButton softwarehusetB;
+	public JButton opretBruger, opretProjekt, opretAktivitet, projektlederTildel, fjernProjektleder, visMedarbejder;
+
+	// For projektleder
+	public JButton projektlederB;
+	public JButton LedigMedarbejder, OpretAktivitet, UddelAktivitet, SeProjektStatus;
+	public String MedarbNavn, MedarbID;
+	public String ProjNavn;
+
+	// For medarbejder
+	public JButton medarbejderB;
+	public JButton RegistrerTimer, erProjektleder;
+
+	// Create a container (JPanel) to hold the first three buttons
+	public JPanel StartUp = new JPanel();
+
+	// Standard buttons
+	public JPanel Knapper = new JPanel();
+
+	public Hovedprogram() {
+		// Set a BorderLayout on the main window
+		getContentPane().setLayout(new BorderLayout());
+
+		// Define a standard button size
+		Dimension buttonSize = new Dimension(200, 200);
+
+		// Settings for send button
+		softwarehusetB = new JButton("Softwarehuset");
+		softwarehusetB.addActionListener(this);
+		softwarehusetB.setPreferredSize(buttonSize);
+		softwarehusetB.setAlignmentX(Component.LEFT_ALIGNMENT);
+		softwarehusetB.addActionListener(this);
+
+		projektlederB = new JButton("Projektleder");
+		projektlederB.addActionListener(this);
+		projektlederB.setPreferredSize(buttonSize);
+		projektlederB.setAlignmentX(Component.CENTER_ALIGNMENT);
+		projektlederB.addActionListener(this);
+
+		medarbejderB = new JButton("Medarbejder");
+		medarbejderB.addActionListener(this);
+		medarbejderB.setPreferredSize(buttonSize);
+		medarbejderB.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		medarbejderB.addActionListener(this);
+
+		// Set a top-down box-layout on the container
+		StartUp.setLayout(new BorderLayout());
+
+		// Create new JPanel for buttons
+		Knapper.setLayout(new FlowLayout());
+		Knapper.add(softwarehusetB);
+		Knapper.add(projektlederB);
+		Knapper.add(medarbejderB);
+
+		StartUp.add(Knapper, BorderLayout.NORTH);
+
+		// Add to mainclass
+		getContentPane().add(StartUp, BorderLayout.NORTH);
 	}
 
+	public static void main(String[] args) {
+		Hovedprogram mainclass = new Hovedprogram();
+		mainclass.setTitle("Softwarehuset"); // Set title on window
+		mainclass.setSize(650, 600); // Set size
+		mainclass.setResizable(false); // Allow the window to be resized
+		mainclass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize(); // centers
+																		// window
+																		// before
+																		// its
+																		// visible
+		mainclass.setLocation(dim.width / 2 - mainclass.getSize().width / 2,
+				dim.height / 2 - mainclass.getSize().height / 2);
+		mainclass.setVisible(true); // Make the window visibl
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == softwarehusetB) { // Action for softwarehuset
+												// button
+
+			// Create new panel, and add to the new panel
+			JPanel SoftwarehusetDisplay = new JPanel();
+			JPanel Buttons = new JPanel();
+
+			SoftwarehusetDisplay.setLayout(new BorderLayout());
+			Buttons.setLayout(new BoxLayout(Buttons, BoxLayout.Y_AXIS));
+
+			// Clear the display
+			StartUp.removeAll();
+			StartUp.revalidate();
+			StartUp.repaint();
+
+			// Remake a new display
+			StartUp.setLayout(new BorderLayout());
+
+			// Create elements
+			Dimension buttonsize = new Dimension(649, 40);
+			opretBruger = new JButton("Opret ny medarbejder");
+			opretBruger.addActionListener(this);
+			opretBruger.setSize(buttonsize);
+			opretBruger.setPreferredSize(buttonsize);
+			opretBruger.setMinimumSize(buttonsize);
+			opretBruger.setMaximumSize(buttonsize);
+			opretBruger.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			opretProjekt = new JButton("Opret nyt projekt");
+			opretProjekt.addActionListener(this);
+			opretProjekt.setSize(buttonsize);
+			opretProjekt.setPreferredSize(buttonsize);
+			opretProjekt.setMinimumSize(buttonsize);
+			opretProjekt.setMaximumSize(buttonsize);
+			opretProjekt.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			projektlederTildel = new JButton("Tildel projektleder");
+			projektlederTildel.addActionListener(this);
+			projektlederTildel.setSize(buttonsize);
+			projektlederTildel.setPreferredSize(buttonsize);
+			projektlederTildel.setMinimumSize(buttonsize);
+			projektlederTildel.setMaximumSize(buttonsize);
+			projektlederTildel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			fjernProjektleder = new JButton("Fjern projektleder");
+			fjernProjektleder.addActionListener(this);
+			fjernProjektleder.setSize(buttonsize);
+			fjernProjektleder.setPreferredSize(buttonsize);
+			fjernProjektleder.setMinimumSize(buttonsize);
+			fjernProjektleder.setMaximumSize(buttonsize);
+			fjernProjektleder.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			visMedarbejder = new JButton("Vis medarbejdere");
+			visMedarbejder.addActionListener(this);
+			visMedarbejder.setSize(buttonsize);
+			visMedarbejder.setPreferredSize(buttonsize);
+			visMedarbejder.setMinimumSize(buttonsize);
+			visMedarbejder.setMaximumSize(buttonsize);
+			visMedarbejder.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			// add to JPanel
+			Buttons.add(opretBruger);
+			Buttons.add(opretProjekt);
+			Buttons.add(projektlederTildel);
+			Buttons.add(fjernProjektleder);
+			Buttons.add(visMedarbejder);
+			SoftwarehusetDisplay.add(Buttons, BorderLayout.CENTER);
+
+			// Add to display
+			StartUp.add(Knapper, BorderLayout.NORTH);
+			StartUp.add(SoftwarehusetDisplay, BorderLayout.CENTER);
+
+			// Display new content
+			getContentPane().add(StartUp, BorderLayout.NORTH);
+
+		}
+		if (e.getSource() == projektlederB) { // Action for projektleder button
+			// button
+
+			// Create new panel, and add to the new panel
+			JPanel ProjektlederDisplay = new JPanel();
+			JPanel Buttons = new JPanel();
+
+			ProjektlederDisplay.setLayout(new BorderLayout());
+			Buttons.setLayout(new BoxLayout(Buttons, BoxLayout.Y_AXIS));
+
+			// Clear the display
+			StartUp.removeAll();
+			StartUp.revalidate();
+			StartUp.repaint();
+
+			// Remake a new display
+			StartUp.setLayout(new BorderLayout());
+
+			// Create elements
+			Dimension buttonsize = new Dimension(649, 40);
+			LedigMedarbejder = new JButton("Se ledige medarbejdere");
+			LedigMedarbejder.addActionListener(this);
+			LedigMedarbejder.setSize(buttonsize);
+			LedigMedarbejder.setPreferredSize(buttonsize);
+			LedigMedarbejder.setMinimumSize(buttonsize);
+			LedigMedarbejder.setMaximumSize(buttonsize);
+			LedigMedarbejder.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			OpretAktivitet = new JButton("Opret aktivitet");
+			OpretAktivitet.addActionListener(this);
+			OpretAktivitet.setSize(buttonsize);
+			OpretAktivitet.setPreferredSize(buttonsize);
+			OpretAktivitet.setMinimumSize(buttonsize);
+			OpretAktivitet.setMaximumSize(buttonsize);
+			OpretAktivitet.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			UddelAktivitet = new JButton("Uddel Aktivitet");
+			UddelAktivitet.addActionListener(this);
+			UddelAktivitet.setSize(buttonsize);
+			UddelAktivitet.setPreferredSize(buttonsize);
+			UddelAktivitet.setMinimumSize(buttonsize);
+			UddelAktivitet.setMaximumSize(buttonsize);
+			UddelAktivitet.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			SeProjektStatus = new JButton("Se status på projekt");
+			SeProjektStatus.addActionListener(this);
+			SeProjektStatus.setSize(buttonsize);
+			SeProjektStatus.setPreferredSize(buttonsize);
+			SeProjektStatus.setMinimumSize(buttonsize);
+			SeProjektStatus.setMaximumSize(buttonsize);
+			SeProjektStatus.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			Buttons.add(LedigMedarbejder);
+			Buttons.add(OpretAktivitet);
+			Buttons.add(UddelAktivitet);
+			Buttons.add(SeProjektStatus);
+			ProjektlederDisplay.add(Buttons, BorderLayout.CENTER);
+
+			StartUp.add(ProjektlederDisplay, BorderLayout.CENTER);
+			StartUp.add(Knapper, BorderLayout.NORTH);
+
+			getContentPane().add(StartUp, BorderLayout.NORTH);
+
+		}
+		if (e.getSource() == medarbejderB) { // Action for medarbejder button
+			// Create new panel, and add to the new panel
+			JPanel MedarbejderDisplay = new JPanel();
+			JPanel Buttons = new JPanel();
+
+			MedarbejderDisplay.setLayout(new BorderLayout());
+			Buttons.setLayout(new BoxLayout(Buttons, BoxLayout.Y_AXIS));
+
+			// Clear the display
+			StartUp.removeAll();
+			StartUp.revalidate();
+			StartUp.repaint();
+
+			// Remake a new display
+			StartUp.setLayout(new BorderLayout());
+
+			Dimension buttonsize = new Dimension(649, 40);
+			RegistrerTimer = new JButton("Registrer Timer");
+			RegistrerTimer.addActionListener(this);
+			RegistrerTimer.setPreferredSize(buttonsize);
+			RegistrerTimer.setMinimumSize(buttonsize);
+			RegistrerTimer.setMaximumSize(buttonsize);
+			RegistrerTimer.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			erProjektleder = new JButton("Er jeg projektleder?");
+			erProjektleder.addActionListener(this);
+			erProjektleder.setSize(buttonsize);
+			erProjektleder.setPreferredSize(buttonsize);
+			erProjektleder.setMinimumSize(buttonsize);
+			erProjektleder.setMaximumSize(buttonsize);
+			erProjektleder.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+			MedarbejderDisplay.setLayout(new BorderLayout());
+			Buttons.add(RegistrerTimer);
+			Buttons.add(erProjektleder);
+			MedarbejderDisplay.add(Buttons, BorderLayout.CENTER);
+
+			StartUp.add(MedarbejderDisplay, BorderLayout.CENTER);
+			StartUp.add(Knapper, BorderLayout.NORTH);
+
+		}
+
+		if (e.getSource() == opretBruger) { // Action for medarbejder button
+			JFrame frame = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout());
+
+			JPanel label = new JPanel(new GridLayout(0, 1, 2, 3));
+			label.add(new JLabel("Medarbejder Navn", SwingConstants.RIGHT));
+			label.add(new JLabel("Medarbejder ID", SwingConstants.RIGHT));
+			panel.add(label, BorderLayout.WEST);
+
+			JPanel controls = new JPanel(new GridLayout(0, 1, 2, 3));
+			JTextField Navn = new JTextField();
+
+			controls.add(Navn);
+			JTextField ID = new JTextField();
+			controls.add(ID);
+			panel.add(controls, BorderLayout.CENTER);
+
+			JOptionPane.showMessageDialog(frame, panel, "Opret medarbejder", JOptionPane.QUESTION_MESSAGE);
+
+			MedarbNavn = Navn.getText();
+			MedarbID = ID.getText();
+
+			Medarbejder temp = new Medarbejder(MedarbNavn, MedarbID);
+			Softwarehuset.opretUser(temp);
+
+		}
+		if (e.getSource() == opretProjekt) { // Action for projekt button
+			JFrame frame = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+			JPanel label = new JPanel(new GridLayout(0, 1, 2, 3));
+			label.add(new JLabel("Projekt Navn", SwingConstants.RIGHT));
+			panel.add(label, BorderLayout.WEST);
+
+			JPanel controls = new JPanel(new GridLayout(0, 1, 2, 3));
+			JTextField Navn = new JTextField();
+			controls.add(Navn);
+			panel.add(controls, BorderLayout.CENTER);
+
+			JOptionPane.showMessageDialog(frame, panel, "Opret Projekt", JOptionPane.QUESTION_MESSAGE);
+
+			ProjNavn = Navn.getText();
+
+			Projekt temp = new Projekt(ProjNavn);
+			Softwarehuset.opretProjekt(temp);
+
+		}
+		if (e.getSource() == visMedarbejder) { // Action for visMedarbejder
+												// button
+
+		}
+	}
 }
