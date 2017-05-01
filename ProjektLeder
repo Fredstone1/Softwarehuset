@@ -7,7 +7,7 @@ public class ProjektLeder extends Medarbejder {
 
 	String ProjektNavn;
 	public static List<Medarbejder> LedigMedarbejderListe = new ArrayList<Medarbejder>();
-	public List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
+	public static List<Aktivitet> AktiveAktiviteter = new ArrayList<Aktivitet>();
 
 	public ProjektLeder(String Navn, String ID) {
 		super(Navn, ID);
@@ -18,7 +18,7 @@ public class ProjektLeder extends Medarbejder {
 		return ProjektNavn;
 	}
 
-	public List<Medarbejder> LedigeMedarbejder() {
+	public static List<Medarbejder> LedigeMedarbejder() {
 		for (int i = 0; i < Softwarehuset.MedarbejderListe.size(); i++) {
 			if (Softwarehuset.MedarbejderListe.get(i).AntalAktiviteter.size() < 20) {
 				LedigMedarbejderListe.add(Softwarehuset.MedarbejderListe.get(i));
@@ -27,8 +27,8 @@ public class ProjektLeder extends Medarbejder {
 		return LedigMedarbejderListe;
 	}
 
-	public void OpretAktivitet(Aktivitet aktivitet, Projekt projekt) {
-		this.AktiveAktiviteter.add(aktivitet);
+	public static void OpretAktivitet(Aktivitet aktivitet, Projekt projekt) {
+		AktiveAktiviteter.add(aktivitet);
 		for (int i=0; i < Softwarehuset.ProjektListe.size(); i++){
 			if(Softwarehuset.ProjektListe.get(i).Navn == projekt.Navn){
 				Softwarehuset.ProjektListe.get(i).TilknyttedeAktiviteter.add(aktivitet);
@@ -37,7 +37,7 @@ public class ProjektLeder extends Medarbejder {
 		}
 	}
 
-	public void UddelAktivitet(String ID, Aktivitet aktivitet) {
+	public static void UddelAktivitet(String ID, Aktivitet aktivitet) {
 		for (int j = 0; j < LedigMedarbejderListe.size(); j++) {
 			if (LedigMedarbejderListe.get(j).ID == ID) {
 				LedigMedarbejderListe.get(j).AntalAktiviteter.add(aktivitet); // tilføjer aktivitet til et array tilknyttet hver medarbejder
@@ -46,7 +46,7 @@ public class ProjektLeder extends Medarbejder {
 		}
 	}
 
-	public void seStatusProjekt(Projekt projekt) {
+	public static void seStatusProjekt(Projekt projekt) {
 		int arb = 0;
 		int forv = 0;
 		for (int i = 0; i < projekt.TilknyttedeAktiviteter.size(); i++){

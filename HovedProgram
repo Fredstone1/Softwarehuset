@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class Hovedprogram extends JFrame implements ActionListener {
+public class HovedProgram extends JFrame implements ActionListener {
 
 	// For softwarehuset
 	public JButton softwarehusetB;
@@ -51,7 +51,7 @@ public class Hovedprogram extends JFrame implements ActionListener {
 	// Standard buttons
 	public JPanel Knapper = new JPanel();
 
-	public Hovedprogram() {
+	public HovedProgram() {
 		// Set a BorderLayout on the main window
 		getContentPane().setLayout(new BorderLayout());
 
@@ -93,7 +93,7 @@ public class Hovedprogram extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		Hovedprogram mainclass = new Hovedprogram();
+		HovedProgram mainclass = new HovedProgram();
 		mainclass.setTitle("Softwarehuset"); // Set title on window
 		mainclass.setSize(650, 600); // Set size
 		mainclass.setResizable(false); // Allow the window to be resized
@@ -343,5 +343,123 @@ public class Hovedprogram extends JFrame implements ActionListener {
 												// button
 
 		}
+		if (e.getSource() == LedigMedarbejder) {
+			JFrame frame = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout(5, 5));
+			JTextArea liste = new JTextArea();
+			liste.removeAll();
+			liste.setSize(200, 100);
+			liste.setLineWrap(true);
+			JScrollPane sw = new JScrollPane(liste);
+			for (int i = 0; i < Softwarehuset.MedarbejderListe.size(); i++) { // evt brug
+											// Softwarehuset.MedarbejderListe.size()
+											// istedet for 10
+				liste.append(ProjektLeder.LedigeMedarbejder().get(i).Navn);
+				liste.append(" ");
+				liste.append(ProjektLeder.LedigeMedarbejder().get(i).ID);
+				liste.append("\n");
+			}
+			panel.add(liste, BorderLayout.CENTER);
+			JOptionPane.showMessageDialog(frame, panel, "Ledige Medarbejdere", JOptionPane.QUESTION_MESSAGE);
+
+		}
+		if (e.getSource() == OpretAktivitet) { // Action for aktivitet button
+			JFrame frame = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+			JPanel label = new JPanel(new GridLayout(0, 1, 2, 3));
+			label.add(new JLabel("Aktivitet", SwingConstants.RIGHT));
+			label.add(new JLabel("Navn på tilhørende projekt", SwingConstants.RIGHT));
+			label.add(new JLabel("Startuge", SwingConstants.RIGHT));
+			label.add(new JLabel("Slutuge", SwingConstants.RIGHT));
+			label.add(new JLabel("Forventede arbejdstimer", SwingConstants.RIGHT));
+			label.add(new JLabel("Tilhørende projektnummer", SwingConstants.RIGHT));
+			panel.add(label, BorderLayout.WEST);
+
+			JPanel controls = new JPanel(new GridLayout(0, 1, 2, 3));
+			JTextField Navn = new JTextField();
+
+			controls.add(Navn);
+			panel.add(controls, BorderLayout.CENTER);
+
+			JTextField ProjektN = new JTextField();
+			controls.add(ProjektN);
+
+			JTextField Startuge = new JTextField();
+			controls.add(Startuge);
+
+			JTextField Slutuge = new JTextField();
+			controls.add(Slutuge);
+
+			JTextField Timer = new JTextField();
+			controls.add(Timer);
+
+			JTextField projN = new JTextField();
+			controls.add(projN);
+
+			JOptionPane.showMessageDialog(frame, panel, "Opret Aktivitet", JOptionPane.QUESTION_MESSAGE);
+			int Start = Integer.parseInt(Startuge.getText().toString());
+			int Slut = Integer.parseInt(Slutuge.getText().toString());
+			int AntTimer = Integer.parseInt(Timer.getText().toString());
+			int ProjektNummer = Integer.parseInt(ProjektN.getText().toString());
+			Projekt projnavn = new Projekt(projN.getText());
+			String AktNavn = Navn.getText();
+
+			Aktivitet temp = new Aktivitet(AktNavn, ProjektNummer, Start, Slut, AntTimer);
+			ProjektLeder.OpretAktivitet(temp, projnavn);
+
+		}
+		if (e.getSource() == UddelAktivitet) {
+			JFrame frame = new JFrame();
+			JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+			JPanel label = new JPanel(new GridLayout(0, 1, 2, 3));
+			label.add(new JLabel("Medarbejder ID", SwingConstants.RIGHT));
+			label.add(new JLabel("Aktiviet", SwingConstants.RIGHT));
+			panel.add(label, BorderLayout.WEST);
+
+			JPanel controls = new JPanel(new GridLayout(0, 1, 2, 3));
+			panel.add(controls,BorderLayout.CENTER);
+			JTextField MedID = new JTextField();
+			controls.add(MedID);
+			JTextField akt = new JTextField();
+			controls.add(akt);
+			JOptionPane.showMessageDialog(frame, panel, "Opret Aktivitet", JOptionPane.QUESTION_MESSAGE);
+			String ID = MedID.getText();
+			int i = 0;
+			for (int j = 0; j < ProjektLeder.AktiveAktiviteter.size(); j++) {
+				Aktivitet temp = ProjektLeder.AktiveAktiviteter.get(j);
+				if (temp.aktivitet.equals(akt.getText())) {
+					i = j;
+					break;
+				}
+			}
+
+			ProjektLeder.UddelAktivitet(ID,ProjektLeder.AktiveAktiviteter.get(i) );
+
+		}
+		if (e.getSource() == SeProjektStatus) {
+			JPanel panel = new JPanel(new BorderLayout(5, 5));
+
+			JPanel label = new JPanel(new GridLayout(0, 1, 2, 3));
+			label.add(new JLabel("Projekt Navn", SwingConstants.RIGHT));
+			JPanel controls = new JPanel(new GridLayout(0, 1, 2, 3));
+			panel.add(controls,BorderLayout.CENTER);
+			JTextField Projekt = new JTextField();
+			controls.add(Projekt);
+			
+			int i = 0;
+			for (int j = 0; j < Softwarehuset.ProjektListe.size(); j++) {
+				Projekt temp = Softwarehuset.ProjektListe.get(j);
+				if (temp.Navn.equals(Projekt.getText())) {
+					i = j;
+					break;
+				}
+			}
+			
+			ProjektLeder.seStatusProjekt(Softwarehuset.ProjektListe.get(i));
+			
+		}
+
 	}
 }

@@ -11,11 +11,11 @@ public class Softwarehuset {
 	public static List<Projekt> ProjektListe = new ArrayList<Projekt>();
 	
 
-	public void opretUser(Medarbejder medarbejder) {
+	public static void opretUser(Medarbejder medarbejder) {
 		MedarbejderListe.add(medarbejder);
 		}
 
-	public void opretProjekt(Projekt projekt) {
+	public static void opretProjekt(Projekt projekt) {
 		ProjektListe.add(projekt);
 	}
 	
